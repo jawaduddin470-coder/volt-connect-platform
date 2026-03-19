@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@theme {
+  --color-primary: #00C853;
+  --color-primary-dark: #007B33;
+  --color-accent: #1565C0;
+  --color-success: #00E676;
+  --color-warning: #FFD600;
+  --color-danger: #FF1744;
+
+  --color-consumer-bg: #0A0A0A;
+  --color-consumer-card: #141414;
+  --color-consumer-border: #1e1e1e;
+  --color-consumer-muted: #6b7280;
+
+  --font-family-sans: 'Inter', sans-serif;
+  --radius-card: 12px;
+  --radius-btn: 8px;
+  --radius-pill: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+.consumer-surface {
+  background-color: #0A0A0A;
+  color: #ffffff;
+  min-height: 100dvh;
+}
+
+.partner-surface {
+  background-color: #F5F7FA;
+  color: #1A1A2E;
+  min-height: 100dvh;
+}
+
+.admin-surface {
+  background-color: #F5F7FA;
+  color: #1A1A2E;
+  min-height: 100dvh;
+}
+
+/* Consumer cards */
+.c-card {
+  background: #141414;
+  border: 1px solid #1e1e1e;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* Partner/Admin cards */
+.p-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* Green CTA */
+.btn-primary {
+  background: #00C853;
+  color: #000;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-primary:hover {
+  background: #00a844;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,200,83,0.3);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Secondary (outline) */
+.btn-secondary {
+  background: transparent;
+  color: #00C853;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 20px;
+  border: 1px solid #00C853;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-secondary:hover {
+  background: rgba(0,200,83,0.1);
+}
+
+/* Badge / pill */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 24px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.badge-green { background: rgba(0,200,83,0.15); color: #00C853; }
+.badge-blue  { background: rgba(21,101,192,0.15); color: #1565C0; }
+.badge-gray  { background: rgba(107,114,128,0.2); color: #9ca3af; }
+.badge-red   { background: rgba(255,23,68,0.15); color: #FF1744; }
+.badge-yellow { background: rgba(255,214,0,0.15); color: #FFD600; }
+
+/* Availability dot */
+.dot-available { width: 8px; height: 8px; border-radius: 50%; background: #00C853; display: inline-block; }
+.dot-occupied  { width: 8px; height: 8px; border-radius: 50%; background: #FF1744; display: inline-block; }
+.dot-unknown   { width: 8px; height: 8px; border-radius: 50%; background: #6b7280; display: inline-block; }
+
+/* Input */
+.input-dark {
+  background: #1e1e1e;
+  border: 1px solid #2d2d2d;
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px 14px;
+  width: 100%;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+.input-dark:focus { border-color: #00C853; }
+.input-dark::placeholder { color: #555; }
+
+.input-light {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  color: #1a1a2e;
+  padding: 10px 14px;
+  width: 100%;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+.input-light:focus { border-color: #00C853; box-shadow: 0 0 0 3px rgba(0,200,83,0.15); }
+
+/* Connector type chips */
+.chip-ccs2    { background: #1a2a4a; color: #60a5fa; border: 1px solid #1e40af; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.chip-type2   { background: #1a3a1a; color: #4ade80; border: 1px solid #166534; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.chip-chademo { background: #3a1a00; color: #fb923c; border: 1px solid #9a3412; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+
+/* Table */
+.data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.data-table th { background: #f9fafb; color: #6b7280; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; padding: 10px 14px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+.data-table td { padding: 12px 14px; border-bottom: 1px solid #f3f4f6; }
+.data-table tr:hover td { background: #fafafa; }
+
+/* Sidebar nav */
+.sidebar { width: 240px; min-height: 100dvh; background: #fff; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; flex-shrink: 0; }
+.sidebar-link { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; color: #6b7280; cursor: pointer; transition: all 0.15s; text-decoration: none; }
+.sidebar-link:hover { background: #f3f4f6; color: #1a1a2e; }
+.sidebar-link.active { background: rgba(0,200,83,0.1); color: #007B33; font-weight: 600; }
+.sidebar-link.active svg { color: #00C853; }
+
+/* Status badge */
+.status-active { background: #d1fae5; color: #065f46; padding: 3px 10px; border-radius: 24px; font-size: 12px; font-weight: 600; }
+.status-inactive { background: #fee2e2; color: #991b1b; padding: 3px 10px; border-radius: 24px; font-size: 12px; font-weight: 600; }
+.status-pending { background: #fef3c7; color: #92400e; padding: 3px 10px; border-radius: 24px; font-size: 12px; font-weight: 600; }
+.status-completed { background: #dbeafe; color: #1e40af; padding: 3px 10px; border-radius: 24px; font-size: 12px; font-weight: 600; }
+
+/* Animations */
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-pulse-green { animation: pulse-green 2s ease-in-out infinite; }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, #1e1e1e 25%, #2d2d2d 50%, #1e1e1e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Heatmap cell */
+.heatmap-cell {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
