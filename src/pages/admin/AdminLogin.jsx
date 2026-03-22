@@ -1,28 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, AlertTriangle, Lock, X } from 'lucide-react';
-
-// ── Glowing Bolt Logo ──
-function VoltLogo({ size = 36, textSize = 20 }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-      <div style={{ position: 'relative', width: size, height: size }}>
-        <div style={{
-          position: 'absolute', inset: -size * 0.5, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,255,178,0.22) 0%, transparent 70%)',
-        }} />
-        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" style={{ position: 'relative', zIndex: 1 }}>
-          <polygon points="13,2 4,14 11,14 11,22 20,10 13,10" fill="#00FFB2" />
-        </svg>
-      </div>
-      <span style={{ fontWeight: 900, fontSize: textSize, letterSpacing: '-0.4px' }}>
-        <span style={{ color: '#fff' }}>Volt</span>
-        <span style={{ color: '#00FFB2' }}>Connect</span>
-      </span>
-    </div>
-  );
-}
-
+import VoltLogo from '../../components/VoltLogo';
 const ADMIN_ACCOUNTS = [
   { email: 'jawadadmin1@login.com', password: 'jawad123' },
   { email: 'basheeradmin2@login.com', password: 'basheer123' },

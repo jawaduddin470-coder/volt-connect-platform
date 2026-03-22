@@ -4,6 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './services/firebase';
 
 import LandingPage from './pages/LandingPage';
+import VoltLogo from './components/VoltLogo';
 
 // Partner
 import PartnerLogin from './pages/partner/PartnerLogin';
@@ -31,22 +32,13 @@ import { Zap } from 'lucide-react';
 function SplashScreen() {
   return (
     <div style={{
-      minHeight: '100dvh', background: '#0A0A0A',
+      minHeight: '100dvh', background: '#000000',
       display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center', gap: 20
+      alignItems: 'center', justifyContent: 'center', gap: 20,
+      fontFamily: "'Inter', system-ui, sans-serif",
     }}>
-      <div style={{
-        width: 80, height: 80, borderRadius: 24,
-        background: 'linear-gradient(135deg, #007B55, #00C9A7)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        animation: 'pulse 1.5s ease-in-out infinite',
-        boxShadow: '0 0 40px rgba(0,201,167,0.4)',
-      }}>
-        <Zap size={40} color="#fff" fill="#fff" />
-      </div>
-      <p style={{ color: '#fff', fontWeight: 800, fontSize: 24, letterSpacing: '-0.5px', fontFamily: 'Inter, system-ui, sans-serif' }}>VoltConnect</p>
-      <p style={{ color: '#4b5563', fontSize: 13, fontFamily: 'Inter, system-ui, sans-serif' }}>Loading...</p>
-      <style>{`@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }`}</style>
+      <VoltLogo size={56} textSize={28} />
+      <p style={{ color: '#4b5563', fontSize: 13, marginTop: 8 }}>Loading...</p>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Zap, LayoutDashboard, MapPin, Calendar, DollarSign, BarChart2, Settings, LogOut, Menu, X } from 'lucide-react';
+import VoltLogo from '../components/VoltLogo';
 
 const NAV_ITEMS = [
   { path: '/partner/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -19,16 +20,11 @@ export default function PartnerLayout({ children }) {
   const SidebarContent = () => (
     <>
       {/* Logo */}
-      <div style={{ padding: '24px 20px 16px', borderBottom: '1px solid #e5e7eb' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ width: 34, height: 34, borderRadius: 10, background: 'linear-gradient(135deg,#007B33,#00C853)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Zap size={18} color="#fff" />
-          </div>
-          <div>
-            <div style={{ fontWeight: 800, fontSize: 15, color: '#1a1a2e', letterSpacing: '-0.3px' }}>VoltConnect</div>
-            <div style={{ fontSize: 11, color: '#6b7280', fontWeight: 500 }}>Partner Portal</div>
-          </div>
+      <div style={{ padding: '20px 16px 16px', borderBottom: '1px solid #e5e7eb' }}>
+        <div style={{ marginBottom: 4 }}>
+          <VoltLogo size={26} textSize={14} />
         </div>
+        <div style={{ fontSize: 11, color: '#6b7280', fontWeight: 500, paddingLeft: 2, marginTop: 4 }}>Partner Portal</div>
       </div>
 
       {/* Nav */}

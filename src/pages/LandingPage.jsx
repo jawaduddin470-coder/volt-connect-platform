@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import { X, Eye, EyeOff, AlertTriangle, Lock, Shield, Building2, Zap, ChevronRight, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { X, Eye, EyeOff, AlertTriangle, Lock, Shield, Building2, Zap, ExternalLink } from 'lucide-react';
 import DownloadModal from '../components/DownloadModal';
+import VoltLogo from '../components/VoltLogo';
 
 // ─────────────────────────────────────────────────────────
 //  Global CSS
@@ -213,36 +214,9 @@ const GLOBAL_CSS = `
   @keyframes floatC { 0%,100%{transform:translate(0,0) scale(1);} 30%{transform:translate(70px,40px) scale(1.08);} 60%{transform:translate(-50px,-60px) scale(0.95);} }
   @keyframes livePulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.45;transform:scale(1.6);} }
   @keyframes boltGlow {
-    0%,100% { filter: drop-shadow(0 0 12px #00FFB2) drop-shadow(0 0 28px rgba(0,255,178,0.35)); }
-    50% { filter: drop-shadow(0 0 20px #00FFB2) drop-shadow(0 0 50px rgba(0,255,178,0.55)); }
+    0%,100% { opacity: 0.85; } 50% { opacity: 1; }
   }
 `;
-
-// ─────────────────────────────────────────────────────────
-//  Glowing Bolt Logo
-// ─────────────────────────────────────────────────────────
-function VoltLogo({ size = 36, textSize = 20 }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-      <div style={{ position: 'relative', width: size, height: size }}>
-        {/* Radial glow halo */}
-        <div style={{
-          position: 'absolute', inset: -size * 0.5, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,255,178,0.25) 0%, transparent 70%)',
-          animation: 'boltGlow 2.5s ease-in-out infinite',
-        }} />
-        <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-          style={{ position: 'relative', zIndex: 1, animation: 'boltGlow 2.5s ease-in-out infinite' }}>
-          <polygon points="13,2 4,14 11,14 11,22 20,10 13,10" fill="#00FFB2" />
-        </svg>
-      </div>
-      <span style={{ fontWeight: 900, fontSize: textSize, letterSpacing: '-0.4px' }}>
-        <span style={{ color: '#fff' }}>Volt</span>
-        <span style={{ color: '#00FFB2' }}>Connect</span>
-      </span>
-    </div>
-  );
-}
 
 // ─────────────────────────────────────────────────────────
 //  Feature Pill

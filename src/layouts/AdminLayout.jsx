@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Zap, Home, Users, Handshake, CreditCard, Scale, DollarSign, Settings, LogOut, Menu, X, Shield } from 'lucide-react';
+import VoltLogo from '../components/VoltLogo';
 
 const NAV_ITEMS = [
   { path: '/admin/overview',     icon: Home,       label: 'Overview' },
@@ -20,15 +21,10 @@ export default function AdminLayout({ children }) {
   const SidebarContent = () => (
     <>
       <div style={{ padding: '20px 16px 14px', borderBottom: '1px solid #e5e7eb' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ width: 32, height: 32, borderRadius: 8, background: '#1565C0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Shield size={16} color="#fff" />
-          </div>
-          <div>
-            <div style={{ fontWeight: 800, fontSize: 14, color: '#1a1a2e' }}>VoltConnect</div>
-            <div style={{ fontSize: 10, color: '#FF1744', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Admin Panel</div>
-          </div>
+        <div style={{ marginBottom: 4 }}>
+          <VoltLogo size={26} textSize={14} />
         </div>
+        <div style={{ fontSize: 10, color: '#FF1744', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', paddingLeft: 2, marginTop: 4 }}>Admin Panel</div>
       </div>
       <nav style={{ flex: 1, padding: '10px 10px' }}>
         {NAV_ITEMS.map(item => {

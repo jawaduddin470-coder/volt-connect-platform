@@ -2,25 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AlertTriangle, X } from 'lucide-react';
 import { loginPartner } from '../../services/partnerAuth';
-
-// ── Glowing Bolt Logo ──
-function VoltLogo({ size = 36, textSize = 20 }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-      <div style={{ position: 'relative', width: size, height: size }}>
-        <div style={{ position: 'absolute', inset: -size * 0.5, borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.22) 0%, transparent 70%)' }} />
-        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" style={{ position: 'relative', zIndex: 1 }}>
-          <polygon points="13,2 4,14 11,14 11,22 20,10 13,10" fill="#7C3AED" />
-        </svg>
-      </div>
-      <span style={{ fontWeight: 900, fontSize: textSize, letterSpacing: '-0.4px' }}>
-        <span style={{ color: '#fff' }}>Volt</span>
-        <span style={{ color: '#00FFB2' }}>Connect</span>
-      </span>
-    </div>
-  );
-}
-
+import VoltLogo from '../../components/VoltLogo';
 const CSS = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
