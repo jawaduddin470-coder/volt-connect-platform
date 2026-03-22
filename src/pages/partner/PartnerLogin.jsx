@@ -62,8 +62,10 @@ export default function PartnerLogin() {
     } catch (err) {
       if (err.message === 'suspended') {
         setError('Your account has been suspended. Contact admin.');
-      } else {
+      } else if (err.message === 'invalid_credentials') {
         setError('Access denied. Invalid Partner ID or PIN.');
+      } else {
+        setError(`Error: ${err.message}`);
       }
     }
     setLoading(false);

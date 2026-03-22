@@ -183,6 +183,7 @@ export const HEATMAP_DATA = (() => {
       data.push({ day, hour: h, intensity: Math.min(intensity, 1) });
     }
   }
+  return { days, data };
 })();
 
 export const SEED_ALL = {
