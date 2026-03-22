@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { X, Eye, EyeOff, AlertTriangle, Lock, Shield, Building2, Zap, ExternalLink } from 'lucide-react';
 import DownloadModal from '../components/DownloadModal';
 import VoltLogo from '../components/VoltLogo';
+import { loginPartner } from '../services/partnerAuth';
 
 // ─────────────────────────────────────────────────────────
 //  Global CSS
@@ -402,43 +403,32 @@ function AdminLoginModal({ onClose, onSuccess }) {
   );
 }
 
-// ─────────────────────────────────────────────────────────
-//  Partner Login Modal
-// ─────────────────────────────────────────────────────────
-import { db } from '../services/firebase';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-
 function PartnerLoginModal({ onClose, onSuccess }) {
   const [partnerId, setPartnerId] = useState('');
   const [pin, setPin] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const hashPin = async (rawPin) => {
-    const enc = new TextEncoder().encode(rawPin);
-    const buf = await crypto.subtle.digest('SHA-256', enc);
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-  };
-
   const handleLogin = async () => {
     setError(''); setLoading(true);
+    const id = partnerId.trim().toUpperCase();
+    if (!id || pin.length < 4) {
+      setError('Please enter a valid Partner ID and PIN.'); setLoading(false); return;
+    }
     try {
-      const id = partnerId.trim().toUpperCase();
-      if (!id || pin.length < 4) { setError('Please enter a valid Partner ID and PIN.'); setLoading(false); return; }
-      const pinHash = await hashPin(pin);
-      const q = query(collection(db, 'partners'), where('partnerId', '==', id), where('pinHash', '==', pinHash));
-      const snap = await getDocs(q);
-      if (snap.empty) { setError('Access denied. Invalid Partner ID or PIN.'); setLoading(false); return; }
-      const partnerDoc = snap.docs[0].data();
-      if (partnerDoc.status === 'inactive' || partnerDoc.status === 'suspended') {
-        setError('Your account has been suspended. Contact admin.'); setLoading(false); return;
-      }
+      const partnerDoc = await loginPartner(id, pin);
       sessionStorage.setItem('vc_partner_auth', '1');
       sessionStorage.setItem('vc_partner_id', id);
       sessionStorage.setItem('vc_partner_name', partnerDoc.companyName || id);
       onSuccess();
     } catch (err) {
-      setError('Connection error. Please try again.');
+      if (err.message === 'suspended') {
+        setError('Your account has been suspended. Contact admin.');
+      } else if (err.message === 'invalid_credentials') {
+        setError('Access denied. Invalid Partner ID or PIN.');
+      } else {
+        setError('Connection error. Please try again.');
+      }
     }
     setLoading(false);
   };
