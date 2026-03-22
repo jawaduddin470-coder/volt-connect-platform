@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/login
+Disallow: /admin/
+Disallow: /partner/login
+
+Allow: /
+Sitemap: https://voltconnect-platform.vercel.app/sitemap.xml
