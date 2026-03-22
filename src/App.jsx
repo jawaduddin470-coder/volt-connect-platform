@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './services/firebase';
-import { subscribeToDocument } from './services/firestoreService';
 
-import AuthPage from './pages/AuthPage';
-import PortalHome from './pages/PortalHome';
-import ConsumerApp from './pages/ConsumerApp';
+import LandingPage from './pages/LandingPage';
 
 // Partner
 import PartnerLogin from './pages/partner/PartnerLogin';
@@ -40,10 +37,10 @@ function SplashScreen() {
     }}>
       <div style={{
         width: 80, height: 80, borderRadius: 24,
-        background: 'linear-gradient(135deg,#007B33,#00C853)',
+        background: 'linear-gradient(135deg, #007B55, #00C9A7)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         animation: 'pulse 1.5s ease-in-out infinite',
-        boxShadow: '0 0 40px rgba(0,200,83,0.4)',
+        boxShadow: '0 0 40px rgba(0,201,167,0.4)',
       }}>
         <Zap size={40} color="#fff" fill="#fff" />
       </div>
@@ -62,24 +59,14 @@ function AdminRoute({ element }) {
 }
 
 export default function App() {
-  const [authState, setAuthState] = useState('loading'); // loading | guest | user
-  const [firebaseUser, setFirebaseUser] = useState(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    // Show splash for at least 2s
-    const splashTimeout = setTimeout(() => {
-      if (authState === 'loading') setAuthState('guest');
-    }, 2000);
+    // Show splash briefly while things initialize
+    const splashTimeout = setTimeout(() => setReady(true), 1200);
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      clearTimeout(splashTimeout);
-      if (user) {
-        setFirebaseUser(user);
-        setTimeout(() => setAuthState('user'), 300);
-      } else {
-        setFirebaseUser(null);
-        setTimeout(() => setAuthState('guest'), 300);
-      }
+    const unsubscribe = onAuthStateChanged(auth, () => {
+      setReady(true);
     });
 
     return () => {
@@ -88,59 +75,35 @@ export default function App() {
     };
   }, []);
 
-  if (authState === 'loading') return <SplashScreen />;
-
-  // Guest: show Consumer Auth OR allow direct /admin and /partner routes
-  // If unauthenticated and not going to admin/partner, show the Consumer Auth
-  if (authState === 'guest') {
-    return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/partner/login" element={<PartnerLogin />} />
-          <Route path="*" element={<AuthPage onLogin={() => {
-            onAuthStateChanged(auth, (u) => {
-              if (u) { setFirebaseUser(u); setAuthState('user'); }
-            });
-          }} />} />
-        </Routes>
-      </BrowserRouter>
-    );
-  }
+  if (!ready) return <SplashScreen />;
 
   return (
     <BrowserRouter>
       <Routes>
-        {/* HUB — default home */}
-        <Route path="/" element={<PortalHome user={firebaseUser} />} />
-
-        {/* Consumer surface */}
-        <Route path="/consumer" element={<ConsumerApp user={firebaseUser} />} />
-        <Route path="/book/:stationId" element={<ConsumerApp user={firebaseUser} />} />
-        <Route path="/routes" element={<ConsumerApp user={firebaseUser} />} />
-        <Route path="/wallet" element={<ConsumerApp user={firebaseUser} />} />
-        <Route path="/profile" element={<ConsumerApp user={firebaseUser} />} />
+        {/* Public landing — no auth required */}
+        <Route path="/" element={<LandingPage />} />
 
         {/* Partner Portal */}
-        <Route path="/partner" element={<Navigate to="/partner/dashboard" replace />} />
-        <Route path="/partner/login" element={<Navigate to="/partner/dashboard" replace />} />
-        <Route path="/partner/dashboard" element={<PartnerRoute element={<PartnerDashboard />} />} />
-        <Route path="/partner/stations"  element={<PartnerRoute element={<PartnerStations />} />} />
-        <Route path="/partner/bookings"  element={<PartnerRoute element={<PartnerBookings />} />} />
-        <Route path="/partner/revenue"   element={<PartnerRoute element={<PartnerRevenue />} />} />
-        <Route path="/partner/analytics" element={<PartnerRoute element={<PartnerAnalytics />} />} />
+        <Route path="/partner"              element={<Navigate to="/partner/login" replace />} />
+        <Route path="/partner/login"        element={<PartnerLogin />} />
+        <Route path="/partner/dashboard"    element={<PartnerRoute element={<PartnerDashboard />} />} />
+        <Route path="/partner/stations"     element={<PartnerRoute element={<PartnerStations />} />} />
+        <Route path="/partner/bookings"     element={<PartnerRoute element={<PartnerBookings />} />} />
+        <Route path="/partner/revenue"      element={<PartnerRoute element={<PartnerRevenue />} />} />
+        <Route path="/partner/analytics"    element={<PartnerRoute element={<PartnerAnalytics />} />} />
 
         {/* Admin Panel */}
-        <Route path="/admin" element={<Navigate to="/admin/overview" replace />} />
-        <Route path="/admin/login" element={<Navigate to="/admin/overview" replace />} />
-        <Route path="/admin/overview"     element={<AdminRoute element={<AdminOverview />} />} />
-        <Route path="/admin/users"        element={<AdminRoute element={<AdminUsers />} />} />
-        <Route path="/admin/partners"     element={<AdminRoute element={<AdminPartners />} />} />
-        <Route path="/admin/transactions" element={<AdminRoute element={<AdminTransactions />} />} />
-        <Route path="/admin/disputes"     element={<AdminRoute element={<AdminDisputes />} />} />
-        <Route path="/admin/payouts"      element={<AdminRoute element={<AdminPayouts />} />} />
-        <Route path="/admin/settings"     element={<AdminRoute element={<AdminSettings />} />} />
+        <Route path="/admin"                element={<Navigate to="/admin/login" replace />} />
+        <Route path="/admin/login"          element={<AdminLogin />} />
+        <Route path="/admin/overview"       element={<AdminRoute element={<AdminOverview />} />} />
+        <Route path="/admin/users"          element={<AdminRoute element={<AdminUsers />} />} />
+        <Route path="/admin/partners"       element={<AdminRoute element={<AdminPartners />} />} />
+        <Route path="/admin/transactions"   element={<AdminRoute element={<AdminTransactions />} />} />
+        <Route path="/admin/disputes"       element={<AdminRoute element={<AdminDisputes />} />} />
+        <Route path="/admin/payouts"        element={<AdminRoute element={<AdminPayouts />} />} />
+        <Route path="/admin/settings"       element={<AdminRoute element={<AdminSettings />} />} />
 
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

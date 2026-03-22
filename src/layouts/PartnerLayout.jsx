@@ -50,7 +50,7 @@ export default function PartnerLayout({ children }) {
       <div style={{ padding: '12px 12px', borderTop: '1px solid #e5e7eb' }}>
         <button onClick={() => navigate('/')} className="sidebar-link"
           style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', color: '#00C853', fontWeight: 700 }}>
-          <Zap size={16} /> ⚡ Back to Hub
+          <Zap size={16} /> ⚡ Back to Home
         </button>
         <button onClick={() => navigate('/')} className="sidebar-link"
           style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280' }}>
@@ -99,7 +99,7 @@ export default function PartnerLayout({ children }) {
             borderRadius: 14, padding: '5px 10px', cursor: 'pointer',
             color: '#00C853', fontWeight: 600, fontSize: 12, fontFamily: 'inherit'
           }}>
-            <Zap size={11} fill="#00C853" /> Hub
+            <Zap size={11} fill="#00C853" /> Home
           </button>
         </div>
 

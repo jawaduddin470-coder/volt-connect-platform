@@ -45,7 +45,7 @@ export default function AdminLayout({ children }) {
       <div style={{ padding: '10px 10px', borderTop: '1px solid #e5e7eb' }}>
         <button onClick={() => navigate('/')} className="sidebar-link"
           style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, color: '#00C853', fontWeight: 700 }}>
-          <Zap size={14} /> ⚡ Back to Hub
+          <Zap size={14} /> ⚡ Back to Home
         </button>
         <button onClick={() => navigate('/')} className="sidebar-link"
           style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13 }}>
@@ -88,7 +88,7 @@ export default function AdminLayout({ children }) {
             borderRadius: 14, padding: '5px 10px', cursor: 'pointer',
             color: '#00C853', fontWeight: 600, fontSize: 12, fontFamily: 'inherit'
           }}>
-            <Zap size={11} fill="#00C853" /> Hub
+            <Zap size={11} fill="#00C853" /> Home
           </button>
         </div>
         <main style={{ flex: 1, padding: 20, overflowY: 'auto' }}>
