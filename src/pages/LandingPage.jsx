@@ -427,7 +427,7 @@ function PartnerLoginModal({ onClose, onSuccess }) {
       } else if (err.message === 'invalid_credentials') {
         setError('Access denied. Invalid Partner ID or PIN.');
       } else {
-        setError('Connection error. Please try again.');
+        setError(`Error: ${err.message}`);
       }
     }
     setLoading(false);
@@ -632,8 +632,20 @@ export default function LandingPage() {
               ))}
             </div>
           </div>
+          <div style={{ display: 'flex', gap: 24, justifyContent: 'center', marginBottom: 16 }}>
+            <a href="tel:+917671958282" style={{ color: '#6b7280', textDecoration: 'none', fontSize: 13, fontWeight: 500 }}
+              onMouseEnter={e => e.currentTarget.style.color = '#00FFB2'}
+              onMouseLeave={e => e.currentTarget.style.color = '#6b7280'}>
+              +91 76719 58282
+            </a>
+            <a href="mailto:jawaduddin470@gmail.com" style={{ color: '#6b7280', textDecoration: 'none', fontSize: 13, fontWeight: 500 }}
+              onMouseEnter={e => e.currentTarget.style.color = '#00FFB2'}
+              onMouseLeave={e => e.currentTarget.style.color = '#6b7280'}>
+              jawaduddin470@gmail.com
+            </a>
+          </div>
           <div style={{ display: 'flex', gap: 18, justifyContent: 'center', marginBottom: 18 }}>
-            {['Privacy', 'Terms', 'Contact'].map(l => (
+            {['Privacy', 'Terms'].map(l => (
               <span key={l} style={{ color: '#444', cursor: 'pointer', fontSize: 13, transition: 'color 0.2s' }}
                 onMouseEnter={e => e.currentTarget.style.color = '#00FFB2'}
                 onMouseLeave={e => e.currentTarget.style.color = '#444'}>{l}</span>
