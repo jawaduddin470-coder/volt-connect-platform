@@ -553,7 +553,7 @@ export default function LandingPage() {
             primaryLabel="📱 Download the App"
             primaryAction={() => setShowDownload(true)}
             secondaryLabel={<><ExternalLink size={13} /> Open Web Version</>}
-            secondaryAction={() => window.open('https://volt-connect-6nja.vercel.app', '_blank', 'noopener,noreferrer')}
+            secondaryAction={() => window.open('https://voltconnect-gamma.vercel.app', '_blank', 'noopener,noreferrer')}
             delay={0}
           />
 
